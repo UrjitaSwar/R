@@ -1,0 +1,601 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r}
+
+#install.packages("tidyverse")
+library("tidyverse")
+
+```
+
+
+```{r}
+Name<-c("Shiv","Ravi","Sai","Shravan")
+year<-c("TE","BE","TE","BE")
+
+college_data<-tibble(roll_no=c(1,2,3,4),Name,year)
+college_data
+```
+
+```{r}
+#Converting college data into a dataframe.
+as.data.frame(college_data)
+
+#If I want to convert a dataframe into a tibble then I do as_tibble(dataframe).
+```
+
+
+```{r}
+import1<-read_csv("data/simple_csv.csv")
+import1
+```
+
+```{r}
+import1$"Add1&3"<-import1$Column1 +import1$Column3
+import1$"Just0"<-0
+import1
+
+#Inserting a column at the begining of the tibble?
+
+#indexx<-tibble(matrix(c(1:29),nrow=29,ncol=5))
+
+#import1$"Serial_no"<-indexx+import1
+#Error in Ops.data.frame(indexx, import1) :
+#‘+’ only defined for equally-sized data frames
+
+#indexx<-c(1:29)
+
+#import1<-cbind(indexx,import1)  #The cbind worked.. but the more I ran this code the more I saw indexx column being added that many times. So I made this into a comment
+import1
+```
+```{r}
+second<-read_csv("data/netflix_titles.csv")
+second
+
+```
+
+```{r}
+colnames(second)
+
+```
+
+```{r}
+summary(second)
+
+```
+
+```{r}
+unique(second[["country"]]) #The output is crazily big....
+```
+
+```{r}
+#What if I want to insert a row at the very top and hence want to push the remaining ?
+```
+
+```{r}
+second$"Year_added"<-str_split(second[["date_added"]],pattern=",",simplify = TRUE)[,2] #We want the second column part for our year added section.
+#Simplify is used to create a matrix which can be easier to split than a list of independent enteries.
+second
+
+```
+
+```{r}
+second<-dplyr::rename(second,"Yearsss"=`Year_added`)
+second
+```
+
+```{r}
+second<-dplyr::rename(second,"TYPE"="type")
+second
+
+```
+
+```{r}
+second[["cast"]]<-replace_na(second[["cast"]],replace="no cast")
+second
+```
+
+```{r}
+second[["director"]]<-replace_na(second[["director"]],replace="No directors")
+second
+
+```
+
+```{r}
+second[["country"]]<-replace_na(second[["country"]],replace="No country")
+second
+```
+
+```{r}
+
+#In head it will always take the first row as a staring point so the second number that you provide will act as the end of the range
+
+#In slice you can either provide a range or a single number depending upon how many rows you want to see.
+slice(second,5)
+
+```
+
+```{r}
+
+#All the things that i remember working on
+
+#making a tibble
+#Converting a data frame into a tibble and checking if it is a tibble. and vice versa.
+#
+```
+
+
+```{r}
+#create a new column by splitting data.
+library(tidyverse)
+
+Serial_no<-c("1001","1201","1211","1232","1255")
+year<-c("TE","FE","BE","TE","BE")
+name<-c("Sai","Mital","Ravi","Shiv",NA)
+Residence<-c("New Panvel,Mumbai","Qatar,Dubai","HGS,Big Colony",NA,"Wifi,city")
+
+dataa<-tibble(Serial_no,year,name,Residence)
+dataa
+```
+
+```{r}
+dataa[["name"]]<-replace_na(dataa[["name"]],replace="Not verified")
+dataa
+
+
+```
+
+```{r}
+dataa[["Residence"]]<-replace_na(dataa[["Residence"]],replace="Not confirmed")
+dataa
+```
+```{r}
+#Have replaced the na values
+
+#Do string split now?
+
+dataa$"Location"<-str_split(dataa[["Residence"]],pattern=",",simplify=TRUE)[,2]
+dataa
+
+#Don't know why I was getting subscript out of bounds error but after re running the previous code it works.
+```
+
+```{r}
+
+#dataa<-dataa%>%dplyr::rename("Main Location" = "Location")
+dataa
+#Putting a new name over the previous one.
+
+```
+
+
+```{r}
+new_row<-c("1301","TE","Urjita","Black,Box","Box")
+
+
+new_data<-rbind(dataa,new_row)
+
+new_data
+
+#new_data%>%dplyr::rename("New Location"=`Location`)
+new_data
+```
+
+
+```{r}
+#What if we get the list for all the TE people
+
+#Be careful of spelling mistakes and rerun your previous code, at times it helps.
+
+new_data%>%filter(year=="TE")
+
+```
+
+```{r}
+new_data%>%filter((year=="TE")&(`Main Location`=="Mumbai"))
+
+#So, if our column name has space in it we can just use ``.
+
+#Need people who are in third year and living in Mumbai.
+
+```
+
+```{r}
+#Provide the names of people whose serial number starts with "12"
+
+#Have to use sapply on every row of the serial number column. But why? In the end we are just filtering so, we can just filter.
+#I perform string slicing?
+#Or I can just filter.
+
+
+new_data%>%filter(grepl("12",Serial_no))#So in here I cannot put the name of the column in "", if I do so.. It doesn't work.
+
+
+```
+
+
+    Syntax: df %>% filter(grepl(‘Pattern’, column_name))
+
+    Parameters:
+
+    df: Dataframe object
+
+        grepl(): finds the pattern String
+        “Pattern”: pattern(string) to be found
+        column_name: pattern(string) will be searched in this column
+```{r}
+#In case we want results which don't contain a very particular part of the string... use the "!" operator.
+
+new_data%>%filter(!grepl("12",Serial_no))
+
+?grepl
+```
+Pattern Matching and Replacement
+Description
+grep, grepl, regexpr, gregexpr, regexec and gregexec search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results.
+
+sub and gsub perform replacement of the first and all matches respectively.
+grepl(pattern, x, ignore.case = FALSE, perl = FALSE,
+      fixed = FALSE, useBytes = FALSE)
+      
+      
+      
+#------------------------------------------------------------------------------------------------------------
+
+Filtering rows containing Multiple patterns(strings)
+
+This code is also similar to the above approaches the only difference is that while passing the multiple patterns(string) in the grepl() function, the patterns are separated with the OR(‘ | ‘) operator. This prints all the rows containing the specified pattern.
+
+df %>% filter(grepl(‘Patt.1 | Patt.2‘, column_name))
+```{r}
+#Lets say that I want to remove individuals who have not provided their address.
+
+#Drop na?
+#The string was empty and not given the value of NA...
+
+
+new_data[["Location"]]
+new_data[4,5]<-NA
+
+new_data<-new_data%>%drop_na()
+new_data
+
+
+#Also, I wonder why? my Location column is not able to keep it's new name for a long time.
+#Like it keeps resetting back to it's old name.
+
+
+#--> So, we are apparently supposed to assign this stuff into a name.. so that a copy is made... that's why my changes are not saved. 
+
+#It's not just rename. All objects in R are immutable (at least the basic ones you will encounter). You can only change them by making an altered copy and reassigning the copy to the same name.
+```
+
+```{r}
+#Can you find the total number of TE Students?
+new_data
+
+total_TE<-count(filter(new_data,year=="TE"))
+total_TE
+#From the recently updated data.. we see that we have 2 students who are of Third year.
+
+```
+## We are gonna work on the apply function family.
+
+
+```{r}
+?lapply
+```
+#lapply returns a list of the same length as X, each element of which is the result of applying FUN to the corresponding element of X.
+
+sapply is a user-friendly version and wrapper of lapply by default returning a vector, matrix or, if simplify = "array", an array if appropriate, by applying simplify2array(). sapply(x, f, simplify = FALSE, USE.NAMES = FALSE) is the same as lapply(x, f).
+```{r}
+data<-mtcars
+data #So we have our data here.
+
+#Function to apply
+
+mgp_category<-function(mgp){
+  if(mgp>30){
+    return("High")
+  }else if (mgp>20){
+    return ("Medium")
+  }
+  return("low")
+}
+
+#Applying to each element
+
+lapply(X=data$mpg,FUN=mgp_category)
+
+#The column that we wanted to apply the function on and the name of the function.
+
+```
+
+```{r}
+#Using sapply to simply the result to a vector or a matrix instead of a list
+data
+mgp_category<-function(mgp){
+  if(mgp>30){
+    return("High")
+  }else if (mgp>20){
+    return ("Medium")
+  }
+    return("low")
+}
+sapply(X=data$mpg,FUN=mgp_category)
+
+#I MESSED UP THE NAMEEEEEEEEEEEEE, ARE YOU KIDDING MEEEEEEEEE?>?>?>?p><:kp_l"+{{:l>'}}
+#sapply(X=data$mgp,FUN=mgp_category)
+
+#The output just gives me list() #It is just not working
+
+```
+
+```{r}
+?sapply
+
+```
+
+
+```{r}
+#Passing additional arguments after FUN
+
+
+within_range<-function(mgp,low,high){
+  if(mgp>=low & mgp<=high){
+    return(TRUE)
+  }
+  return(FALSE)
+  
+}
+
+index<-sapply(X=data$mpg,FUN=within_range, low=15, high=20)
+index
+data[index,] #Here we can see it as a filter being applied over our data frame.
+#Use case of sapply of creating an index using the conditions and then applying it on our dataframe
+```
+
+```{r}
+#Taking reference to the above case, what we have given to the parameters high and low are static values but what if we want to give then a range of values, vectors and on that basis our function can work on multiple values.
+
+#So we use the mapply function
+
+
+mpg_within_standard_range<-function(mpg,cyl){
+  if(cyl==4){
+    return(within_range(mpg,low=23,high=31))
+  }else if(cyl==6){
+    return(within_range(mpg,low=18,high=23))
+  }
+  return(within_range(mpg,low=13,high=18))
+}
+
+index<-mapply(FUN = mpg_within_standard_range, mpg = data$mpg, cyl = data$cyl)
+index
+
+#We want results not in the index range
+
+data[!index,]
+```
+
+```{r}
+#When used on a dataframe,lapply and sapply apply a function to each column
+
+sapply(data,FUN=median)
+```
+
+```{r}
+
+#Working on groupby and aggregates
+
+#data() 
+#The above code will give you the list of all the builtin datasets
+#library(tidyverse)
+#view(msleep)
+#Using the above command we can view the dataset.
+
+names(msleep) #Gives us the name of all the variables(colnames)
+```
+
+```{r}
+msleep%>% drop_na(sleep_rem,vore)%>% group_by(vore)%>%summarise(`Average total sleep`=mean(sleep_total),`Maximum rem sleep`=max(sleep_rem))%>%view
+
+
+#So what is happening here? 
+
+#The first thing we do is drop na values, not that it is the best form of action as first we should always look into the reason as to why there are na values. Unless it is told to remove na values... we should not remove them 
+
+#So fine in this case we are droping the na values.. next we pipe these updated values into groupby.. where we yell them to group by the unique values present in the vore column and summarize on certain parameters, and then we pipe all that into view..
+
+	
+#  vore Average total sleep Maximum rem sleep
+#1carni      9.66000         6.6
+
+#And so on...
+#Summarise will give you summary statistics of the different columns 
+# the summarise() function doesn't just create new column headings, but new actual variables that can be used for further calculations/operations
+```
+
+```{r}
+?summarise
+```
+Summarise each group to fewer rows
+Description
+summarise() creates a new data frame. It will have one (or more) rows for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarising all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified.
+
+summarise() and summarize() are synonyms.
+
+Usage
+summarise(.data, ..., .groups = NULL)
+
+summarize(.data, ..., .groups = NULL)
+Arguments
+.data	
+A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+
+...	
+<data-masking> Name-value pairs of summary functions. The name will be the name of the variable in the result.
+
+The value can be:
+
+A vector of length 1, e.g. min(x), n(), or sum(is.na(y)).
+
+A vector of length n, e.g. quantile().
+
+A data frame, to add multiple columns from a single expression.
+```{r}
+?group_by
+```
+
+Group by one or more variables
+Description
+Most data operations are done on groups defined by variables. group_by() takes an existing tbl and converts it into a grouped tbl where operations are performed "by group". ungroup() removes grouping.
+
+Usage
+group_by(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data))
+
+ungroup(x, ...)
+```{r}
+
+
+diamonds #The dataset that we will work in
+```
+
+```{r}
+summarise(diamonds,mean(price)) #It takes a dataframe and return you back one as well.
+```
+
+```{r}
+#The real power of summarise is seen when we combine it with group by
+
+diamonds%>%group_by(cut)
+#In the above command's output you will notice nothing is different but that is because that attribute cut is already there and well things are kindoff marked according to that.
+
+diamonds%>%group_by(cut)%>%summarise(mean(price))
+
+
+
+#We can also put a new name and specify more than one summarise parameter
+
+diamonds%>%group_by(cut)%>%summarize(avg_price=mean(price),avg_carat=mean(carat))
+
+```
+
+```{r}
+diamonds%>%group_by(carat>1)%>%summarize(avg_price=mean(price))
+```
+
+```{r}
+#We can put more arguments in group_by.
+
+diamonds%>%group_by(carat>1,cut)%>%summarize(avg_price=mean(price))
+
+#We get all the possible conditions for carat>1 and cut variables and hence we have 10 columns
+
+```
+
+```{r}
+diamonds%>%group_by(Big=carat>1,cut)%>%summarize(avg_price=mean(price)) #So we are renaming the column name as carat>1 dosen't feel like a good name.
+
+
+```
+
+```{r}
+#We can plot what we did above on the ggplot()
+
+#So we are learning something extra.
+
+diamonds%>%group_by(Big=carat>1,cut)%>%summarize(avg_price=mean(price))%>%ggplot(aes(x=cut,fill=Big,y=avg_price))+geom_col(position="dodge")
+
+
+
+#As the cut gets better the bigger diamonds get higher in price wheareas the smaller diamonds are going down in price.
+```
+
+```{r}
+
+#use the groupby command in conjecture with something other than summarise command
+
+#So we have used mutate.
+
+diamonds2<-diamonds%>%group_by(cut)%>%mutate(avg_price_by_cut=mean(price))
+diamonds2
+
+#What you see down there is that, the grouping has been done and hence prices got calculated and then assigned to the right tags.
+
+#Mutate will add a new column or potentially replace a column in your dataframe.
+```
+
+```{r}
+
+#What happens when we do a summarise command on diamonds2
+
+summarise(diamonds2,mean(price)) #So the groups which were given earlier still remain.. but sometimes we don't want that...
+
+```
+
+```{r}
+diamonds2%>%ungroup%>%summarise(mean(price))
+
+#And here we go, we have returned to our previous mean price.
+
+```
+
+```{r}
+
+#Sorting stuff
+
+
+#If we want to sort on the basis of a particular column as an index...
+
+#library(tidyverse)
+
+df<-mtcars
+df%>%head(5)
+
+
+df[order(df$mpg),]%>%head(5)
+
+
+```
+
+```{r}
+?order
+
+```
+
+Description
+order returns a permutation which rearranges its first argument into ascending or descending order, breaking ties by further arguments. sort.list does the same, using only one argument.
+See the examples for how to use these functions to sort data frames, etc.
+
+Usage
+order(..., na.last = TRUE, decreasing = FALSE,
+      method = c("auto", "shell", "radix"))
+
+sort.list(x, partial = NULL, na.last = TRUE, decreasing = FALSE,
+          method = c("auto", "shell", "quick", "radi
+          
+```{r}
+#Decreasing
+
+#Just reverse the previous line of code
+df[rev(order(df$mpg)),]%>%head(5)
+```
+```{r}
+#Dplyr arrange in ascending order
+
+
+df%>% arrange(mpg)%>%head(5)
+```
+
+```{r}
+df%>% arrange(desc(mpg))%>%head(5)
+```
+
+```{r}
+
+```
+
+

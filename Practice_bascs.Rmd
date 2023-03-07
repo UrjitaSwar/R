@@ -1,0 +1,678 @@
+```{r}
+x<-2
+(x)
+```
+```{r}
+typeof(x)
+```
+```{r}
+y<-'2'
+(y)
+typeof(y)
+
+
+z<-TRUE
+typeof(z)
+```
+## Double
+This is the default type that numeric data is encoded in R. Double stands for “double precision” and is called such because back in the day when computer memory was much more constrained, people would store a lot of data in the single-precision format. Unless you have a very specific reason to (usually memory constraints), you’ll want to store data in the double format.
+
+```{r}
+w<-13
+typeof(w)
+
+w/0 #Infinity
+
+-(w)/0 #Negative Infinity
+
+0/0 #NaN -- Not a number
+
+h<-NA #Missing value (But think of it more in terms of boolean)
+g<-as.double(NA) #So we get NA_real_
+
+```
+```{r}
+q=27
+typeof(q)
+
+q<-as.integer(q)
+typeof(q)
+
+
+#Writing L after the number also helps
+q<-2L
+(q)
+typeof(q)
+```
+
+```{r}
+#Complex numbers
+
+complexx<-3+3i
+typeof(complexx)
+
+```
+```{r}
+#Character
+
+z<- "I am learning python"
+a<-"2"
+b<-'b'
+d<-"'r'"
+(d)
+
+mult_line<-"This is a multiline
+comment"
+
+#Escape character
+escape<-"Hiiii, check for single quotes \'"
+escape
+new_line<-"Hii, next line \n and here you \n go"
+(new_line)
+
+d <- "this is how you create a \n newline, which is kind of like hitting the enter key" 
+(d)
+```
+```{r}
+#vectors
+
+#group of objects of the same type, a bunch of numbers for example 
+
+e<-c(1,2,3,4,8)
+(e)
+
+#If, we check the type of vector
+typeof(e)
+```
+
+
+```{r}
+r<-c(1,2,'u')
+typeof(r)
+
+#If we use multiple data types, R will coerce the data types into the closest one which will satisfy all values in the vector. Oftentimes this will mean character
+
+```
+
+```{r}
+#You can also create a Vector using :. This will create a range of values from the beginning to the end of the range you specify:
+
+ranges<-1:5
+ranges #creates a vector of range 1 to 5
+```
+
+```{r}
+#Use seq() to gain more granular control over creating ranges
+
+seq_vector<-seq(1,10,length.out=.5)
+seq_vector #Now that I think of it sequence works as a for loop in a way... start and end with the skip.
+
+
+seq2<- seq(1,5,2)
+seq2
+
+#[1] 1 3 5 got the output that I needed.
+```
+
+```{r}
+z<-c(1,3,4,5,5,7)
+
+#In r indexes start with 1 instead of 0 like python
+(z[1])#First value in vector
+(z[1:4])#First four values in vector
+
+(z[c(1,2,3)])#Get specific values from the vector in this manner
+
+(z[-1])#Apart from the first element get all the other ones.
+
+
+
+```
+## You can also perform all kinds of mathematical operations on vectors in R, here are a couple of them
+
+```{r}
+vec<-1:5
+(sum(vec))
+(min(vec))
+(max(vec))
+(range(vec))#Unlike the python range function.. here it will only return the first and last element of a vector.. so if you want to actually state a vector with range then just do x:y..
+(length(vec)) #Getting error here: Error in lenght(vec) : could not find function "lenght"
+
+
+
+```
+
+```{r}
+vec[vec>3]
+#Putting conditions that we need values greater than 3, so it will return 4 and 5 to us.
+
+vec[vec<3] #The output comes out as 1,2
+```
+
+```{r}
+z<-c("first"=1, "second"=2,"third"=123) #Using vectors as dictionary
+
+(z["first"]) #Putting key value to find value
+
+length(vec)
+
+```
+
+```{r}
+
+mat<-matrix(1:6,nrow =2)
+mat
+
+#Accessing specific element
+mat[1,] #For the row
+mat[,1]#For the column
+mat[2,3]#For specific element
+```
+
+Basic Markdown Syntax
+
+# This is a Heading
+## This is a Heading 2
+### This is a Heading 3
+
+Regular text
+
+**Bold Text**
+
+*Italic Text*
+
+Bullet Points
+
+* Point 1
+	* Point 1.1
+* Point 2
+
+Numbered Points
+
+1. Point 1
+2. Point 2
+
+```{r}
+
+add_str<-paste("str","pastee")#paste is used to concatenate string.
+add_str #The string gets concatenated
+
+floor_division<-7%/%2
+#We get the largest multiple
+floor_division#So we get the quotient
+
+exponentiation<-7^3
+exponentiation
+
+modulo<-10%%3 #We get remainder of  number
+
+mult_str<-replicate(4,"Hiiiiiiiii")
+mult_str
+
+mult_list<-c(1,2,3,4)*3
+mult_list #The value outside gets multiplied to all the element inside.
+
+```
+
+```{r}
+
+3==3 & 2<=5 #Using AND logical operator
+
+3==3 | 2<=5 #Using OR logical operator
+```
+
+```{r}
+
+function_name<-function(x,y,z){
+  return(x*y+z)
+}
+
+function_name(2,3,4)
+function_name(x = 1, y = 2, z = 3)
+```
+```{r}
+function_range<-function(x,y){
+    temp=range(x:y)
+
+    return(temp)
+}
+
+function_range(1,5)
+```
+
+```{r}
+
+o<-3
+p<-4
+
+if(o==p){
+  print("o is equal to p")
+  
+}else if(o>p){
+  print("o is greater than p")
+}else{
+  print("p is greater than o")
+}
+
+```
+
+```{r}
+the_list<- 3:10 
+
+for(i in the_list){
+  i=i+1 #We adding 1 to the element of the_list.
+  print(i)
+}
+
+```
+```{r}
+#While loop
+#Also, here there is no worry of indentation unlike python.
+
+e<-0
+sum<-0
+
+while(e<10){
+  sum<-sum+e
+  
+  e<-e+1
+  
+}
+print(sum)
+
+
+
+```
+
+
+```{r}
+#repeat and break
+#Works similar to while loop
+
+f<-0
+
+repeat{
+  print(f)
+  f<-f+1
+  
+  if(f>5){
+    break
+  }
+  
+}
+
+#So in the repeat block we provide set of instructions that we want to be executed repeatedly and in the case of "break" keyword we provide the break condition.
+ 
+
+```
+
+```{r}
+#To speed development and move industry forward, people will group together code that performs a function or a group of functions in something called a "package" or a library. Comprehensive R Archive Network" is the official R package repository.
+```
+
+```{r}
+#Installing packages
+
+install.packages("tidyverse")
+
+```
+```{r}
+library("tidyverse") #After installing packages we need to import that in our file in order to use it
+
+#So how in python we used the word import.. we can use the keyword import and in case of r we use the term "library" to import it in our file.
+
+```
+
+```{r}
+dplyr::mutate() #using :: can also import a very specific part of the packages inside your code.
+
+#So we are importing 'mutate' module from the 'dplyr' package
+
+```
+
+```{r}
+#reading the documentation for a package.
+
+#?tidyverse
+
+#or
+help(tidyverse)
+
+
+```
+
+tidyverse: Easily Install and Load the 'Tidyverse'
+Description
+logo
+The 'tidyverse' is a set of packages that work in harmony because they share common data representations and 'API' design. This package is designed to make it easy to install and load multiple 'tidyverse' packages in a single step. Learn more about the 'tidyverse' at https://www.tidyverse.org.
+
+
+--------------------------------------------------------------------------
+
+Congratulations! You've completed all of the preliminary work to understand R. As a Data Analyst, I've had to know how to do all of the functions above, but I typically apply tibbles more directly in my work. This is where the meat and potatoes of Data Analysis lies. 
+
+
+DataFrames are a data structure that organize data into a 2-D table of rows and columns, think of an Excel Spreadsheet (not the workbook).
+
+#Tibbles are improved versions of DataFrames 
+##with features that force you to deal with problems in your data earlier on. 
+R has default DataFrames which are more commonly formatted as data.frame. If you want to convert a data.frame to a tibble you can use the below code. 
+
+```{r}
+#same as how we did as.double() or as.integer() except here we use _ instead of .
+as_tibble(iris)
+
+
+```
+
+```{r}
+x<-1:5
+
+y<-c(2,3,4,5,6)
+
+z<-3:7
+#The length must be same.
+first_tibble<-tibble(x,y,z)
+first_tibble
+
+```
+You might run into a data structure called the data.frame. This is the base R implementation of the DataFrame and has been largely replaced by the tibble in most Data Science applications. For the sake of simplicity, in this course we’ll be using the tibble format. In case you need to use tibbles or data.frames specifically, below are the functions to convert the two between one another. 
+
+```{r}
+
+as.data.frame(first_tibble)#convert tibble to data.frame
+
+#as_tibble(data) #Convert data.frame to tibble.
+
+```
+```{r}
+
+filepath<-"data/simple_csv.csv"
+first_import<-read_csv(filepath)
+first_import
+
+```
+
+#Columns
+
+To access one variable in a dataset, use the dollar sign “$”. For example, $vote1 returns the vote1 variable (the vote1 column).
+
+```{r}
+
+first_import$"Column1"#Extracting column by name
+
+first_import[["Column1"]]
+first_import[[1]]#Double brackets can extract by name or position.
+
+```
+
+```{r}
+#Creating and deleting the column
+
+first_import$"NewColumn"<-1 #we can specify uniform value for every row.
+
+first_import$"NextColumn"<- 1:29
+first_import$"Adding_columns"<-first_import$"Column1"+first_import$"Column3"
+
+#Adding values of columns together
+
+
+first_import<- select(first_import,-"Column2") #We are deleting a column
+first_import
+
+
+
+```
+
+
+```{r}
+
+#This will give list of column names.
+colnames(first_import)
+
+```
+
+
+```{r}
+
+netflix<-read_csv("data/netflix_titles.csv")
+netflix
+
+```
+
+
+```{r}
+#We can get the descriptive statistics on all the numerical columns in the dataset use.
+
+summary(netflix)
+```
+Sometimes we'll encounter a DataFrame column with data we want to split on some delimiter. Let's try and split our "date_added" column into two columns that way we can compare the year media shows up on Netflix to when it was released. 
+
+simplify=True is used to create a matrix that can be easily split instead of a list of independent entries. To see the different try : 
+
+```{r}
+
+unique(netflix[["type"]])
+
+```
+Sometimes we'll encounter a DataFrame column with data we want to split on some delimiter. Let's try and split our "date_added" column into two columns that way we can compare the year media shows up on Netflix to when it was released. 
+
+simplify=True is used to create a matrix that can be easily split instead of a list of independent entries. To see the difference try : 
+
+```{r}
+netflix$"Year_Added"<-str_split(netflix[["date_added"]],",",simplify = "TRUE")[,2]
+
+netflix
+```
+
+```{r}
+netflix<-dplyr::rename(netflix,"Year"=`Year_Added`)
+netflix
+```
+You might have noticed that we used dplyr::rename at the beginning of our function call. This is because in earlier versions of the tidyverse the plyr and dplyr packages both had a version of the rename function in them so this is to just clarify which one we want to access. 
+
+You might have also noticed that we used the backtick ` to specify the name of our column, this is because R doesn’t handle column names with whitespaces in them very well, hence the funky syntax.  While we’re at it, let’s rename the other column as well. 
+```{r}
+netflix<-dplyr::rename(netflix,"TYPE"=`type`)
+netflix
+```
+#Dealing with Null Values- Fill Na
+Often you'll find NA data in your DataFrame. You often don't want this in your data, let's practice getting rid of it. 
+```{r}
+netflix[["cast"]]<-replace_na(netflix[["cast"]],replace="no cast")
+netflix
+```
+
+#Rows
+
+```{r}
+slice(netflix,1)#Select the first row
+
+slice(netflix,1:5)#Select rows 1 through 5
+
+```
+Often you'll find NA data in your DataFrame. You often don't want this in your data, let's practice getting rid of it. 
+```{r}
+?Extract
+```
+
+```{r}
+head(netflix,5)
+```
+
+#Pipes
+It helps you to chain operations one after the other.
+
+##Pipes are part of the magrittr package, they’re usually imported with tidyverse.
+
+You’ll recognize them as: %>%. Basically they allow you to chain operations together one after another. If you’re interested in the history behind Pipes in R, check out the blog post below: 
+
+```{r}
+netflix[["director"]]%>%  replace_na(replace="No director")
+netflix[["director"]]
+```
+
+
+Let's try and find only the movies made in Singapore. We're going to be using something called subsetting by boolean conditions. 
+
+```{r}
+
+netflix%>% filter(country == "Singapore")
+```
+Let's see if we can use multiple conditions. We'll be using those bitwise operators we mentioned earlier. 
+```{r}
+netflix%>% filter((country=="Singapore")&(rating=="TV-MA"))
+```
+
+#Applying a function to every row
+
+We use the sapply function to apply a function to every row of a DataFrame.
+
+```{r}
+#We created a new column called genre_count in which the total number of genres are recorded.
+
+#So for every row of the column listed in we applied the function
+#This function will return the length of the list which we will receive after spliting up the genres into a list using "," as a delimiter.
+#And that [[1]] is so that the total length is recorded in the single column. otherwise if I don't put it, the output shows "1" as the value for the entire column of genre count.
+
+netflix[["genre_count"]] <- sapply(netflix[["listed_in"]],function(x) length(str_split(x,pattern=",")[[1]]))
+netflix
+
+
+
+```
+
+#Date Times
+As a Data Analyst, Dates and Times will be one of the most challenging datatypes you'll encounter. Different systems will store them differently, and there will often be different formats of dates in the same database. 
+
+R uses the `lubridate` package to help ease the burden of dealing with dates. 
+
+When working with dates, you can deal with
+- Dates
+- Times
+
+DateTimes - A Combination of a date and a time
+```{r}
+library(tidyverse)
+library(lubridate) #This package is not a part of tidy verse so we have to import it to our file seperately
+
+#Mutate is used to manipulate columns, add or subtract stuff in that sense.
+
+
+#So what we are doing is, piping netflix into mutate, in a new column date added where we are stating the format of previous columns of date added.
+
+#Earlier it was in this format December 15, 2017
+
+#Now it becomes 2020-08-14	
+
+
+netflix<-netflix%>% mutate(date_added=mdy(date_added))
+netflix
+
+
+#?mutate
+
+#mutate() adds new variables and preserves existing ones; transmute() adds new variables and drops existing ones. New variables overwrite existing variables of the same name. Variables can be removed by setting their value to NULL.
+
+
+
+```
+We ended up with a couple of NA values. Let's fill those in. We'll have to create a datetime variable using the replace_na and make_date modules. 
+
+```{r}
+netflix[["date_added"]]<-netflix[["date_added"]] %>% replace_na(make_date(2020,1,1)) #So we are telling them to replace all the values (na) in the column of date_added with 2020,1,1 which we will first convert it in a date format using make_date.
+
+```
+
+```{r}
+
+#Here we have done proper use of pipes.
+
+
+#We are telling R to,
+#In the netflix dataframe group by column country and then summarize them on the basis of distinct shows in them and put it in a column called count and in the end to take all that and arrange it in ascending order.
+netflix%>% group_by(country)%>%summarize(count = n_distinct(show_id))%>%arrange(desc(count))
+
+#We made the above contents into a seperate tibble.
+
+netflix_movies_by_country<-netflix%>% group_by(country)%>%summarize(count = n_distinct(show_id))%>%arrange(desc(count))
+netflix_movies_by_country
+```
+
+Oftentimes we'll want to enrich our data by adding more data from other datasets to it. There are two major ways we can combine our datasets together: (The following visualizations will be coming from my FREE Tableau Course)
+
+#Union
+Put simply, a union (SQL Union) is the process of stacking two tables on top of one another. You will usually do this when your data is split up into multiple sections like an Excel spreadsheet of a year’s sales split by month.
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a5adad37-92c6-4924-b52c-2ab340ae351b/Screen_Shot_2021-03-15_at_12.23.40_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a5adad37-92c6-4924-b52c-2ab340ae351b/Screen_Shot_2021-03-15_at_12.23.40_PM.png)
+
+```r
+netflix_reimport <- read_csv("data/netflix_titles.csv")
+second_dataset <- read_csv("data/netflix_titles_second.csv")
+
+new_dataset <- rbind(netflix_reimport, second_dataset)
+new_dataset
+```
+
+```{r}
+netflix_reimport<-read_csv("data/netflix_titles.csv")
+second_dataset<-read_csv("data/netflix_titles_second.csv")
+
+new_dataset<-rbind(netflix_reimport,second_dataset)
+new_dataset
+
+```
+
+#Joins
+
+```{r}
+
+netflix_merged<- inner_join(netflix_reimport,second_dataset,netflix_movies_by_country,by="country")
+
+netflix_merged
+```
+#Working on pivots
+Pivot and Pivot Longer
+
+#Pivot Wider
+
+Oftentimes you'll want to pivot your data into a wider format or unpivot your data into a longer format. We’ll use the pivot_wider and pivot_longer functions to do this to our data. Pivoting Wider data takes it from the "long" format that we are used to and puts it in a "wide" format that might be easier to read. Here's an example. 
+
+#Taking example of our data, we have the column "TYPE", where there are two distinct values of TV Show and Movie.. so why not make two new columns one which will only show movies and the other which will only show TV Show, so we are in a way making the tibble wider and reducing the number of length.
+#So on the basis of country.. like per country how many tv shows and how many movies.
+
+```{r}
+pivot_table<-pivot_wider(netflix,id_cols=country,names_from=type,values_from=title,values_fn=length)
+pivot_table
+
+
+#You typically want to pivot data when you want to present it to individuals as it will be easier to digest. 
+```
+
+#Oftentimes I receive data from clients and coworkers that's in a "wide" format that I'd like to convert to a "long" format in order to more easily analyze it in Python. Since the data we have is already in the long format, we’ll create our own data to test out this functionality.
+```{r}
+
+test_df <- tibble(A = c('a', 'b', 'c') , B = c(1, 3, 5), C = c(2, 4, 6))
+
+pivot_longer(test_df,  2:3) #So we are specifying the dimensions here in pivot longer.
+
+```
+
+
+
+```{r}
+?pivot_longer
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

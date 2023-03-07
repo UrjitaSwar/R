@@ -1,0 +1,47 @@
+```{r}
+x<-2
+
+temp<-c(1,2,3)
+for(i in temp){
+  print("x")
+
+}
+
+listtt<-1:5
+listtt
+
+
+range<-function(x,y){
+  ranges<-x:y
+  return(ranges)
+}
+
+
+#print(range(1,5))
+
+```
+```{r}
+print(range(1:5))
+
+temp<-range(1:6)
+temp
+
+```
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
+
+

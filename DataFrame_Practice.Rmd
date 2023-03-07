@@ -1,0 +1,125 @@
+
+#Data Frame Practice
+```{r}
+#In this article we will see how to create a Dataframe from four given vectors in R. To create a data frame in R using the vector, we must first have a series of vectors containing data. The data.frame() function is used to create a data frame from vector in R.
+
+id<-c(1,2,3)
+name<-c("Shiv","Sai","Shravan")
+branch<-c("IT","CSE","CBSE")
+fav_sub<-c("SE","DAA","OS")
+
+df1<-data.frame(id,name,branch,fav_sub)
+df1
+```
+
+```{r}
+
+#install.packages("tidyverse")
+#library("tidyverse")
+tb1<-as_tibble(df1)
+tb1
+
+tb1$"CGPA"<-c(9.8,8.4,9.3)
+tb1
+```
+
+```{r}
+colnames(tb1)
+
+#So we just created an empty dataframe.
+columns<-c("name","year","fav_sub")
+emp_df<-data.frame(matrix(nrow=0,ncol=length(columns)))
+#The above step was needed as we always have to be careful regarding the lenght of vectors that we do in dataframe.. so if we want an empty dataframe then data.frame() would have been enough but then since we want to put up column names so we need to set up the length.
+emp_df
+
+colnames(emp_df)<-columns
+emp_df
+
+
+#We can also specify the number of rows as well, just that if no value is kept there, then it will show NA as the value in the rows
+
+nrows_emp<-data.frame(matrix(nrow=3,ncol=length(columns)))
+colnames(nrows_emp)<-columns
+nrows_emp
+```
+
+    Syntax: rbind(a, b)
+
+    Parameters:
+
+        a = data frame
+        b = data to be binded with data frame
+
+#Insert multiple rows in R DataFrame
+```{r}
+nrows_emp
+#We are going to use rbind() kinda like the union thing that we learnt last time.
+row1<-c("Sai","BE","DAA")
+nrows_emp<-rbind(nrows_emp,row1)
+nrows_emp
+
+#So our row gets added to the end.
+
+```
+
+        
+        
+```{r}
+nrows_emp[1,]<-row1
+nrows_emp
+#And now we get our first row filled using indexing
+
+```
+
+```{r}
+#Adding new column to our dataframe
+nrows_emp$"CGPA"<-c(9.0,NA,NA,8.9)
+nrows_emp
+#nrows_emp[,4] prints the entire 4th column of the data frame
+```
+
+```{r}
+#Adding a row and a column
+
+nrows_emp
+#Lets add a new column and hence and new row value for residence.
+
+nrows_emp$"Residence"<-c("Panvel",NA,NA,"Thane")
+nrows_emp
+
+```
+
+```{r}
+#Extract n number of rows from the dataframe
+
+nrows_emp[1:3,]
+head(nrows_emp,2)
+
+```
+
+```{r}
+#Getting n number of rows from the end of the dataset.
+
+last_row<-tail(nrows_emp,n=2)
+last_row
+
+#In case you want all the rows in the dataframe you can put n=nrows.. as it will provide the total number of rows in it.
+```
+
+#How to select row with maximum value in each group in R Language?
+```{r}
+as_tibble(nrows_emp)
+nrows_emp%>%drop_na(Residence)
+nrows_emp
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+
